@@ -13,7 +13,11 @@ namespace disconnectedModeActivite3
 {
     public partial class Form1 : Form
     {
+        //Represente une base locale
         private DataSet MonData = new DataSet("MonData");
+
+        private bool load = false;
+
         public Form1()
         {
             InitializeComponent();
@@ -166,6 +170,45 @@ namespace disconnectedModeActivite3
 
             MonData.Relations.Add(rel);
 
+
+            // s'assurer que l'initialisation a eu lieu
+            load = true;
+        }
+
+        private void grdPers_CurrentCellChanged(object sender, EventArgs e)
+        {
+            if (load)
+            {
+                DataRow rowPers =
+                     MonData.Tables["Personnes"].Rows[grdPers.CurrentCell.RowIndex];
+                string msg = " Le nom : " + rowPers["Nom"] +"\n";
+                DataRow[] lignesfille = rowPers.GetChildRows("PersInt");
+               
+                foreach(DataRow row in lignesfille)
+                {
+                   DataRow parentRow= row.GetParentRow("PassInt");
+                    msg += parentRow["Passion"] +"\n";
+                }
+                MessageBox.Show(msg);
+            }
+        }
+
+        private void grdPass_CurrentCellChanged(object sender, EventArgs e)
+        {
+            if (load)
+            {
+                DataRow rowPassion =
+                     MonData.Tables["Passions"].Rows[grdPers.CurrentCell.RowIndex];
+                string msg = " Le nom : " + rowPassion["Passion"] + "\n";
+                DataRow[] lignesfille = rowPassion.GetChildRows("PassInt");
+
+                foreach (DataRow row in lignesfille)
+                {
+                    DataRow parentRow = row.GetParentRow("PersInt");
+                    msg += parentRow["Nom"] + "\n";
+                }
+                MessageBox.Show(msg);
+            }
         }
     }
 }

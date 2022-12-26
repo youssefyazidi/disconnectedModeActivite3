@@ -43,6 +43,7 @@
             this.grdPers.Name = "grdPers";
             this.grdPers.Size = new System.Drawing.Size(216, 300);
             this.grdPers.TabIndex = 0;
+            this.grdPers.CurrentCellChanged += new System.EventHandler(this.grdPers_CurrentCellChanged);
             // 
             // grdPersPass
             // 
@@ -59,6 +60,7 @@
             this.grdPass.Name = "grdPass";
             this.grdPass.Size = new System.Drawing.Size(187, 300);
             this.grdPass.TabIndex = 2;
+            this.grdPass.CurrentCellChanged += new System.EventHandler(this.grdPass_CurrentCellChanged);
             // 
             // Form1
             // 
